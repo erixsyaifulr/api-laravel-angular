@@ -15,6 +15,7 @@ use App\Http\Controllers\EmployeeController;
 |
 */
 Route::post('employees', 'EmployeeController@index');
+Route::post('employees_search', 'EmployeeController@searchEmployee');
 Route::get('employee/{id}', 'EmployeeController@show');
 Route::post('employee', 'EmployeeController@store');
 Route::put('employee/{id}', 'EmployeeController@update');
@@ -27,6 +28,9 @@ Route::get('salary/{id}', 'SalaryController@show');
 Route::post('salary', 'SalaryController@store');
 Route::put('salary/{id}', 'SalaryController@update');
 Route::delete('salary/{id}', 'SalaryController@destroy');
+
+Route::get('/upload-file', [FileUpload::class, 'createForm']);
+Route::post('/upload-file', [FileUpload::class, 'fileUpload'])->name('fileUpload');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

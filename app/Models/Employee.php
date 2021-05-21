@@ -11,13 +11,24 @@ class Employee extends Model
     protected $table = 'employee';
 
 
-    public static function getEmployee($skip, $limit){
-        $data = DB::table('employee')->skip($skip)->take($limit)->get();
+    public static function getEmployee($skip, $limit, $name){
+        if ($name ==""){
+            $data = DB::table('employee')->skip($skip)->take($limit)->get();
+        }
+        else{
+            $data = DB::table('employee')->where('first_name', 'LIKE', '%' . $name . '%')->skip($skip)->take($limit)->get();
+        }
         return $data;
     }
 
-    function getCountEmployee(){
-        $data = DB::table('employee')->get()->count();
+    function getCountEmployee($skip, $limit, $name){
+        if ($name ==""){
+            $data = DB::table('employee')->get()->count();
+        }
+        else{
+            $data = DB::table('employee')->where('first_name', 'LIKE', '%' . $name . '%')->skip($skip)->take($limit)->get()->count();
+        }
+       
         return $data;
     }
 

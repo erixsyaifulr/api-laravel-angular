@@ -18,9 +18,24 @@ class EmployeeController extends Controller
     {
         $skip = $request->skip;
         $limit = $request->limit;
+        $name = $request->name;
         $employemodel = new Employee();
-        $data = $employemodel->getEmployee($skip, $limit);
-        $count = $employemodel->getCountEmployee();
+        $data = $employemodel->getEmployee($skip, $limit,$name);
+        $count = $employemodel->getCountEmployee($skip, $limit,$name);
+        $response['data'] = $data;
+        $response['totalRecord'] = $count;
+        return response()->json($response);
+        // return Employee::all();
+    }
+
+    public function searchEmployee(Request $request)
+    {
+        $skip = $request->skip;
+        $limit = $request->limit;
+        $name = $request->name;
+        $employemodel = new Employee();
+        $data = $employemodel->getEmployee($skip, $limit,$name);
+        $count = $employemodel->getCountEmployee($skip, $limit,$name);
         $response['data'] = $data;
         $response['totalRecord'] = $count;
         return response()->json($response);
